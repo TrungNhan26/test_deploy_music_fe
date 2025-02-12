@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="/path/to/favicon.ico" type="image/x-icon">
+    <title>Login and Sign Up</title>
+    <link href="/css/login.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/login.js" ></script>
+    <style>
+      .cont_forms {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column; /* Đặt các form theo chiều dọc */
+        padding: 20px;
+        max-width: 400px; /* Giới hạn chiều rộng của form */
+        margin: 0 auto;
+    }
+    
+    .cont_form_login, .cont_form_sign_up {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+        background: rgba(255, 255, 255, 0.9); /* Thêm nền mờ */
+        border-radius: 8px; /* Tạo góc bo tròn */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    input[type="text"], input[type="email"], input[type="password"], select {
+        width: 100%; /* Chiếm hết chiều rộng của form */
+        height: 45px;
+        margin: 10px 0; /* Khoảng cách giữa các ô */
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px; /* Thêm góc bo tròn cho các ô nhập liệu */
+    }
+    
+    button {
+        width: 100%;
+        height: 45px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #4CAF50; /* Màu nền cho nút */
+        color: white;
+    }
+    
+    button:hover {
+        background-color: #45a049;
+    }
+    
+        /* Điều chỉnh kích thước placeholder */
+    input[type="text"], input[type="email"], input[type="password"], select {
+      width: 100%;
+      height: 35px;
+      font-size: 14px; /* Thu nhỏ font-size của placeholder */
+      margin-bottom: 15px;
+    }
+
+    /* Để thay đổi font-size của placeholder */
+    input::placeholder {
+      font-size: 14px; /* Điều chỉnh kích thước placeholder */
+    }
+</style>
+</head>
+<body>
+  <div class="cotn_principal">
+    <div class="cont_centrar">
+    
+      <div class="cont_login">
+        <div class="cont_info_log_sign_up">
+          <div class="col_md_login">
+            <div class="cont_ba_opcitiy">
+              <h2>LOGIN</h2>  
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> 
+              <button class="btn_login" onclick="change_to_login()">LOGIN</button>
+            </div>
+          </div>
+          <div class="col_md_sign_up">
+            <div class="cont_ba_opcitiy">
+              <h2>SIGN UP</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <button class="btn_sign_up" onclick="change_to_sign_up()">SIGN UP</button>
+            </div>
+          </div>
+        </div>
+    
+        <div class="cont_back_info">
+          <div class="cont_img_back_grey">
+            <img src="" alt="" />
+          </div>
+        </div>
+        
+        <div class="cont_forms" >
+          <div class="cont_img_back_">
+            <img src="" alt="" />
+          </div>
+
+          <!-- LOGIN FORM -->
+          <div class="cont_form_login">
+            <a href="#" onclick="hidden_login_and_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
+            <h2>LOGIN</h2>
+            <input type="text" placeholder="Email" value="nhando2604@gmail.com" />
+            <input type="password" placeholder="Password" value="nhando123"  />
+            <button class="btn_login" onclick="handleLogin()">LOGIN</button>
+          </div>
+
+          <!-- SIGN UP FORM -->
+          <div class="cont_form_sign_up">      
+            <!-- Username -->
+            <input type="text" placeholder="Username" required value="TrungNhan" />
+            
+            <!-- Email -->
+            <input type="text" placeholder="Register Email" value="nhando2604@gmail.com" required />
+            
+            <!-- Full Name -->
+            <input type="text" placeholder="Full Name" value="Đỗ Huỳnh Trung Nhân" required />
+            
+            <!-- Password -->
+            <input type="password" placeholder="Register Password" value="nhando123" required />
+            
+            <!-- Confirm Password -->
+            <input type="password" placeholder="Confirm Password" value="nhando123" required />
+            
+            <!-- Phone Number -->
+            <input type="text" placeholder="Phone Number" value="0929359373" required />
+
+            <!-- Sign Up Button -->
+            <button class="btn_sign_up" onclick="handleSignUp()">SIGN UP</button>
+          </div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <script>
+    function handleLogin() {
+      // Lấy thông tin từ các input
+      const log_in_email = document.querySelector('input[placeholder="Email"]').value;
+      const log_in_password = document.querySelector('input[placeholder="Password"]').value;
+  
+      // Kiểm tra input có hợp lệ không
+      if (!log_in_email || !log_in_password) {
+        alert("Please enter both email and password.");
+        return;
+      }
+  
+      // Cấu hình headers
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+  
+      // Gửi yêu cầu tới API đăng nhập
+      fetch("https://test-deploy-music-be.onrender.com/api/auth/login", {
+        method: "POST",
+        headers: myHeaders,
+        body: JSON.stringify({
+          emailRequestDTO: log_in_email, // Đúng theo định dạng API yêu cầu
+          passwordRequestDTO: log_in_password, // Đúng theo định dạng API yêu cầu
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Invalid email or password.");
+          }
+          return response.json(); // Parse phản hồi JSON
+        })
+        .then((data) => {
+          console.log("Response data:", data);
+  
+          // Kiểm tra sự tồn tại của token
+          if (data.tokenAuthenticationResponseDTO) {
+  
+            // Lưu token vào localStorage
+            localStorage.setItem("authToken", data.tokenAuthenticationResponseDTO);
+  
+            // Kiểm tra role của người dùng
+            const userRole = data.userAuthenticationResponseDTO.userRoleResponse;
+  
+            // Chuyển hướng dựa trên role
+            if (userRole === "ADMIN") {
+              window.location.href = "/admin.html"; // Trang admin
+            } else {
+              window.location.href = "/home.html"; // Trang user
+            }
+          } else {
+            // Không tìm thấy token
+            alert("Login failed: Invalid email or password.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error during login:", error);
+          alert("An error occurred. Please try again.");
+        });
+    }
+
+    async function handleSignUp() {
+      try {
+        // Lấy giá trị từ các input
+        const username = document.querySelector('input[placeholder="Username"]').value;
+        const register_email = document.querySelector('input[placeholder="Register Email"]').value;
+        const fullName = document.querySelector('input[placeholder="Full Name"]').value;
+        const register_password = document.querySelector('input[placeholder="Register Password"]').value.trim();
+        const confirmPassword = document.querySelector('input[placeholder="Confirm Password"]').value.trim();
+        const phoneNumber = document.querySelector('input[placeholder="Phone Number"]').value;
+    
+        // Kiểm tra điều kiện mật khẩu
+        if (register_password !== confirmPassword) {
+          alert("Passwords do not match!");
+          return;
+        }
+    
+        // Tạo object dữ liệu gửi đi
+        const data = {
+          username: username,
+          email: register_email,
+          fullName: fullName,
+          password: register_password,
+          phoneNumber: phoneNumber,
+        };
+    
+        // Cấu hình headers
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+    
+        // Gửi yêu cầu API đăng ký
+        const registerResponse = await fetch("https://test-deploy-music-be.onrender.com/api/auth/register", {
+          method: "POST",
+          headers: myHeaders,
+          body: JSON.stringify(data),
+        });
+    
+        if (!registerResponse.ok) {
+          throw new Error(`Registration failed: ${registerResponse.status}`);
+        }
+    
+        // Đăng ký thành công, tiếp tục đăng nhập
+        const loginResponse = await fetch("https://test-deploy-music-be.onrender.com/api/auth/login", {
+          method: "POST",
+          headers: myHeaders,
+          body: JSON.stringify({
+            emailRequestDTO: register_email,
+            passwordRequestDTO: register_password,
+          }),
+        });
+    
+        if (!loginResponse.ok) {
+          throw new Error(`Login failed: ${loginResponse.status}`);
+        }
+    
+        const loginData = await loginResponse.json();
+    
+        // Kiểm tra sự tồn tại của token
+        if (loginData.tokenAuthenticationResponseDTO) {
+          // Lưu token vào localStorage
+          localStorage.setItem("authToken", loginData.tokenAuthenticationResponseDTO);
+    
+          // Kiểm tra role của người dùng
+          const userRole = loginData.userAuthenticationResponseDTO.userRoleResponse;
+    
+          // Chuyển hướng dựa trên role
+          if (userRole === "ADMIN") {
+            window.location.href = "/admin.html"; // Trang admin
+          } else {
+            window.location.href = "/home.html"; // Trang user
+          }
+        } else {
+          alert("Login failed: Invalid email or password.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
+      }
+    }
+    
+  </script>
+  
+</body>
+</html>
+

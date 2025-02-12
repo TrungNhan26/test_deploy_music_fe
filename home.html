@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>MUZIK - Start Bootstrap Theme</title>
+    <script src="/js/auth.js"></script>
+    <script src="/js/home.js"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version) -->
+    <script
+      src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- Core theme CSS (includes Bootstrap) -->
+    <link href="css/styles.css" rel="stylesheet" />
+  </head>
+    <!-- Custom CSS -->
+    <style>
+      /* Enlarge the toast */
+      .toast {
+        min-width: 300px; /* Increase the width */
+        font-size: 1.2rem; /* Increase the font size */
+        padding: 15px; /* Increase padding */
+      }
+
+      .toast-body {
+        font-size: 1.1rem; /* Optional: Increase the font size of the body */
+      }
+
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      
+      .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      
+      .card img {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+      
+      .card-body {
+        padding: 15px;
+      }
+      
+      /* Custom styles to make all cards the same height */
+      #music-list .card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+  
+      #music-list .card-body {
+        flex-grow: 1;
+      }
+
+            /* Style cho menu thả xuống */
+      .dropdown-menu {
+        background-color: #343a40; /* Màu nền */
+        color: white; /* Màu chữ */
+        border: none; /* Loại bỏ viền */
+      }
+
+      .dropdown-item {
+        color: white; /* Màu chữ */
+      }
+
+      .dropdown-item:hover {
+        background-color: #ffc107; /* Màu nền khi hover */
+        color: black; /* Màu chữ khi hover */
+      }
+
+    </style>
+  <body id="page-top">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="home.html">MUZIK</a>
+    <button
+      class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarResponsive"
+      aria-controls="navbarResponsive"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      Menu
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item mx-0 mx-lg-1">
+          <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Music</a>
+        </li>
+        <li class="nav-item mx-0 mx-lg-1">
+          <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a>
+        </li>
+        <!-- Login Container -->
+        <li class="nav-item mx-0 mx-lg-1 dropdown" id="login-container">
+          <a
+            class="nav-link py-3 px-0 px-lg-3 rounded"
+            href="Login.html"
+            id="login-link"
+          >
+            Log in
+          </a>
+          <!-- Menu thả xuống -->
+          <ul class="dropdown-menu" aria-labelledby="login-link" id="user-menu" style="display: none;">
+            <li><a class="dropdown-item" href="user-profile.html">User Profile</a></li>
+            <li><a class="dropdown-item" href="#" id="logout-button">Log out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <!-- Masthead -->
+    <header class="masthead bg-primary text-white text-center">
+      <div class="container d-flex align-items-center flex-column">
+        <!-- Masthead Avatar Image -->
+        <img
+          class="masthead-avatar mb-5"
+          src="assets/img/avataaars.svg"
+          alt="..."
+        />
+        <!-- Masthead Heading -->
+        <h1 class="masthead-heading text-uppercase mb-0">MUZIK</h1>
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <!-- Masthead Subheading -->
+        <p class="masthead-subheading font-weight-light mb-0">
+          Create Music - Enjoy Music - Unleash Your Creativity
+        </p>
+        <div class="text-center mt-4">
+          <button
+            id="openModalButton" 
+            class="btn btn-xl btn-outline-light"
+            onclick="checkTokenBeforeOpeningModal()"
+          >
+            <i class="fas fa-music me-2"></i>
+            Create Music
+          </button>
+        </div>
+        
+      </div>
+    </header>
+
+    <!-- Portfolio Section -->
+    <section class="page-section portfolio" id="portfolio">
+      <div class="container">
+        <!-- Portfolio Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">
+          MUSIC
+        </h2>
+        <div class="container mt-5">
+          <!-- Icon Divider -->
+          <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+          </div>
+    
+          <!-- Music List -->
+          <div class="row justify-content-center" id="purchased-music-list">
+            <!-- Cards will be dynamically inserted here -->
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <!-- About Section -->
+    <section class="page-section bg-primary text-white mb-0" id="about">
+      <div class="container">
+        <!-- About Section Heading -->
+        <h2 class="page-section-heading text-center text-uppercase text-white">
+          About
+        </h2>
+        <!-- Icon Divider -->
+        <div class="divider-custom divider-light">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Content -->
+        <div class="row">
+          <div class="col-lg-4 ms-auto">
+            <p class="lead">
+              We provide a creative platform to transform MIDI files into unique
+              musical compositions. With our cutting-edge technology, we enable
+              you to customize and enhance the quality of music from MIDI files.
+            </p>
+          </div>
+          <div class="col-lg-4 me-auto">
+            <p class="lead">
+              You can upload your own MIDI files, choose from our library, or
+              create music from scratch. Try it now to explore unlimited musical
+              potential!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- Create Music Modal -->
+<div class="modal fade" id="createMusicModal" tabindex="-1" aria-labelledby="createMusicModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createMusicModalLabel">Create Music</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetForm()"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="musicModeTabs">
+          <li class="nav-item">
+            <a class="nav-link active" id="monotoneTab" data-bs-toggle="tab" href="#monotoneTabContent" onclick="switchTab('monotone')">Monotone</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="multitoneTab" data-bs-toggle="tab" href="#multitoneTabContent" onclick="switchTab('multitone')">Multitone</a>
+          </li>
+        </ul>
+        <div class="tab-content mt-3">
+          <div class="tab-pane fade show active" id="monotoneTabContent">
+            <!-- Monotone Content -->
+            <div class="mb-3">
+              <label class="form-label">Enable MIDI Upload</label>
+              <input type="checkbox" id="monotoneToggle" onchange="toggleMidiUpload('monotone')">
+            </div>
+            <div class="mb-3" id="monotoneMidiFile" style="display:none;">
+              <label for="monotoneMidi" class="form-label">Upload MIDI File</label>
+              <input type="file" class="form-control" id="monotoneMidi" accept=".mid,.midi">
+            </div>
+          </div>
+          <div class="tab-pane fade" id="multitoneTabContent">
+            <!-- Multitone Content -->
+            <div class="mb-3">
+              <label class="form-label">Enable MIDI Upload</label>
+              <input type="checkbox" id="multitoneToggle" onchange="toggleMidiUpload('multitone')">
+            </div>
+            <div class="mb-3" id="multitoneMidiFile" style="display:none;">
+              <label for="multitoneMidi" class="form-label">Upload MIDI File</label>
+              <input type="file" class="form-control" id="multitoneMidi" accept=".mid,.midi">
+            </div>
+          </div>
+        </div>
+        <!-- Spinner for processing -->
+        <div id="processingMessage" class="text-center text-primary" style="display: none;">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Processing...</span>
+          </div>
+          <p>Processing your music, please wait...</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetForm()">Close</button>
+        <button type="button" class="btn btn-primary" id="createMusicBtn" onclick="handleCreateMusic()">Create Music</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Toast thông báo -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div
+      id="successToast"
+      class="toast"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    >
+      <div class="toast-header bg-success text-white">
+        <strong class="me-auto">Success</strong>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="toast-body">Your music has been generated successfully!</div>
+    </div>
+    <div
+      id="errorToast"
+      class="toast"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    >
+      <div class="toast-header bg-danger text-white">
+        <strong class="me-auto">Error</strong>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="toast-body">Something went wrong. Please try again.</div>
+    </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+      <div class="container">
+        <div class="row">
+          <!-- Footer Location-->
+          <div class="col-lg-4 mb-5 mb-lg-0">
+            <h4 class="text-uppercase mb-4">Location</h4>
+            <p class="lead mb-0">
+              Nguyen Luong Bang
+              <br />
+              Da Nang, Viet Nam 
+            </p>
+          </div>
+          <!-- Footer Social Icons-->
+          <div class="col-lg-4 mb-5 mb-lg-0">
+            <h4 class="text-uppercase mb-4">Around the Web</h4>
+            <a
+              class="btn btn-outline-light btn-social mx-1"
+              href="#!"
+              ><i class="fab fa-fw fa-facebook-f"></i
+            ></a>
+            <a
+              class="btn btn-outline-light btn-social mx-1"
+              href="#!"
+              ><i class="fab fa-fw fa-twitter"></i
+            ></a>
+            <a
+              class="btn btn-outline-light btn-social mx-1"
+              href="#!"
+              ><i class="fab fa-fw fa-linkedin-in"></i
+            ></a>
+            <a
+              class="btn btn-outline-light btn-social mx-1"
+              href="#!"
+              ><i class="fab fa-fw fa-dribbble"></i
+            ></a>
+          </div>
+          <!-- Footer About Text-->
+          <div class="col-lg-4">
+            <h4 class="text-uppercase mb-4">About MUZIK</h4>
+            <p class="lead mb-0">
+              MUZIK is a platform to create, upload, and share your music.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Copyright Section -->
+    <div class="copyright py-4 text-center text-white">
+      <div class="container">
+        <small>Copyright &copy; Your Website 2024</small>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Song Details</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="data:;base64,=">
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      /* Updated styles */
+      body {
+        background-color: #20c997;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+
+      .product-details {
+        max-width: 1000px;
+        margin: 180px auto;
+        padding: 60px;
+        background-color: white;
+        border-radius: 10px;
+        color: #333;
+      }
+
+      .song-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-top: 20px;
+        color: #333;
+      }
+
+      .song-info {
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+      }
+
+      .btn-play {
+        margin-top: 20px;
+        background-color: #20c997;
+        color: white;
+        border: none;
+      }
+
+      .btn-play:hover {
+        background-color: #17a589;
+      }
+
+      .audio-preview h5 {
+        margin-top: 20px;
+        color: #20c997;
+      }
+
+      .navbar {
+        background-color: #20c997;
+      }
+
+      .navbar .navbar-brand {
+        color: white;
+        font-weight: bold;
+      }
+
+      .navbar .nav-link {
+        color: white;
+      }
+
+      .navbar .nav-link:hover {
+        color: #17a589;
+      }
+
+      /* Đặt kiểu cơ bản cho body */
+
+    /* Đặt kiểu cho nút */
+    #play-button {
+      background-color: #4CAF50; /* Màu nền xanh lá */
+      color: white;  /* Màu chữ trắng */
+      border: none;  /* Loại bỏ đường viền */
+      padding: 15px 32px;  /* Đặt kích thước padding */
+      font-size: 18px;  /* Kích thước chữ */
+      cursor: pointer;  /* Đổi con trỏ thành hình bàn tay */
+      border-radius: 8px;  /* Bo tròn các góc của nút */
+      transition: all 0.3s ease;  /* Hiệu ứng chuyển động mượt mà */
+    }
+
+    /* Hiệu ứng hover khi rê chuột lên nút */
+    #play-button:hover {
+      background-color: #45a049; /* Làm tối màu khi hover */
+      transform: scale(1.1);  /* Tăng kích thước nút một chút */
+    }
+
+    /* Hiệu ứng khi nhấn nút */
+    #play-button:active {
+      background-color: #388e3c; /* Làm tối hơn khi nhấn */
+      transform: scale(1);  /* Trở lại kích thước ban đầu */
+    }
+    </style>
+  </head>
+  <body>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a href="home.html" class="logo-title">
+            <h1 style="color: white;">MUZIK</h1>
+          </a>
+          
+          
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+      </div>
+    </nav>
+
+    <!-- Song Details Section -->
+    <div class="container product-details">
+      <!-- Thêm ID vào các phần tử để dễ dàng cập nhật nội dung -->
+      <h1 id="music-title" class="song-title"></h1>
+      <p id="music-category" class="song-info"></p>
+
+      <!-- Thêm một nút để phát MIDI -->
+      <button id="play-button">Play MIDI</button>  
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tonejs/midi"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.42/Tone.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/midi.js@0.3.0/build/MIDI.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- detail.html -->
+    <script>
+      let isPlaying = false; // Biến để theo dõi trạng thái phát nhạc
+      let currentTransportTime = 0; // Thời gian của Tone.Transport khi nhạc được dừng
+  
+      document.addEventListener("DOMContentLoaded", async () => {
+        // Lấy musicId từ URL
+        const params = new URLSearchParams(window.location.search);
+        const musicId = params.get("musicId");
+  
+        if (musicId) {
+          try {
+            // Lấy token từ localStorage hoặc từ nơi lưu trữ khác
+            const token = localStorage.getItem("authToken"); // Hoặc bất kỳ nơi nào bạn lưu trữ token
+  
+            if (!token) {
+              console.error("No token found.");
+              return;
+            }
+  
+            // Gọi API để lấy chi tiết bài nhạc
+            const response = await fetch(`https://test-deploy-music-be.onrender.com/api/user/musics/${musicId}`, {
+              headers: {
+                Authorization: `Bearer ${token}`,  // Thêm Bearer token vào header
+              },
+            });
+  
+            const result = await response.json();
+  
+            if (response.ok && result.status === 200) {
+              const music = result.data;
+  
+              // Cập nhật nội dung vào HTML
+              document.getElementById("music-title").textContent = music.titleResponse;
+              document.getElementById("music-category").textContent = `Category: ${music.categoryIdResponse === 1 ? 'Monotone' : music.categoryIdResponse === 2 ? 'Multitone' : 'Unknown'}`;
+  
+              // Cập nhật đường dẫn file MIDI
+              const fullUrl = music.fullUrlResponse; // Ví dụ: "/music/ClairdeLune.mid"
+  
+              // Gọi hàm phát MIDI từ Tone.js khi nhấn nút
+              const playButton = document.getElementById("play-button");
+              playButton.addEventListener("click", () => {
+                togglePlayPause(fullUrl); // Phát hoặc dừng nhạc khi nút được nhấn
+              });
+            } else {
+              console.error("Failed to fetch music details:", result.message);
+            }
+          } catch (error) {
+            console.error("Error fetching music details:", error);
+          }
+        } else {
+          console.error("No musicId found in URL");
+        }
+      });
+  
+      // Cấu hình Tone.js Sampler
+      const piano = new Tone.Sampler({
+        urls: {
+          A0: "A0.mp3",
+          C1: "C1.mp3",
+          "D#1": "Ds1.mp3",
+          "F#1": "Fs1.mp3",
+          A1: "A1.mp3",
+          C2: "C2.mp3",
+          "D#2": "Ds2.mp3",
+          "F#2": "Fs2.mp3",
+          A2: "A2.mp3",
+          C3: "C3.mp3",
+          "D#3": "Ds3.mp3",
+          "F#3": "Fs3.mp3",
+          A3: "A3.mp3",
+          C4: "C4.mp3",
+          "D#4": "Ds4.mp3",
+          "F#4": "Fs4.mp3",
+          A4: "A4.mp3",
+          C5: "C5.mp3",
+          "D#5": "Ds5.mp3",
+          "F#5": "Fs5.mp3",
+          A5: "A5.mp3",
+          C6: "C6.mp3",
+          "D#6": "Ds6.mp3",
+          "F#6": "Fs6.mp3",
+          A6: "A6.mp3",
+          C7: "C7.mp3",
+          "D#7": "Ds7.mp3",
+          "F#7": "Fs7.mp3",
+          A7: "A7.mp3",
+          C8: "C8.mp3",
+        },
+        release: 1,
+        baseUrl: "https://tonejs.github.io/audio/salamander/",
+      }).toDestination();
+  
+      // Hàm để phát MIDI từ server sử dụng Tone.js
+      function playMIDI(midiFile) {
+        fetch(`http://localhost:8000/results/${midiFile}`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('File not found');
+            }
+            return response.arrayBuffer(); // Lấy file dưới dạng ArrayBuffer
+          })
+          .then(arrayBuffer => {
+            const midi = new Midi(arrayBuffer);  // Phân tích tệp MIDI
+  
+            // Bắt đầu Tone.js Transport
+            Tone.Transport.start();
+  
+            // Lập lịch phát nốt nhạc
+            midi.tracks.forEach(track => {
+              track.notes.forEach(note => {
+                Tone.Transport.schedule(time => {
+                  piano.triggerAttackRelease(note.name, note.duration, time);  // Phát nốt nhạc
+                }, note.time);
+              });
+            });
+  
+            console.log("Playing MIDI file...");
+          })
+          .catch(error => {
+            // Hiển thị lỗi nếu không thể phát
+            console.error('Error playing file:', error.message);
+          });
+      }
+  
+      // Hàm để dừng MIDI
+      function stopMIDI() {
+        Tone.Transport.stop();  // Dừng Tone.js Transport
+        Tone.Transport.cancel();  // Hủy các sự kiện đã lập lịch
+        isPlaying = false;
+        const playButton = document.getElementById("play-button");
+        playButton.textContent = "Play MIDI"; // Thay đổi nút thành "Play"
+      }
+  
+      // Hàm để chuyển đổi giữa play và pause
+      function togglePlayPause(midiFile) {
+        if (isPlaying) {
+          stopMIDI(); // Dừng nhạc nếu đang phát
+        } else {
+          playMIDI(midiFile); // Phát nhạc nếu chưa phát
+          isPlaying = true;
+          const playButton = document.getElementById("play-button");
+          playButton.textContent = "Stop MIDI"; // Thay đổi nút thành "Stop"
+        }
+      }
+    </script>
+    
+
+  </body>
+</html>
