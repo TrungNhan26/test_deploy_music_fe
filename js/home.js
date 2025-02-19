@@ -106,7 +106,7 @@ async function getFullNameFromToken(token) {
     const encodedEmail = encodeURIComponent(email);
 
     // Gửi request với token trong header
-    const response = await fetch(`https://test-deploy-music-be.onrender.com/api/user/${encodedEmail}`, {
+    const response = await fetch(`http://localhost:8181/api/user/${encodedEmail}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`, // Thêm token vào header Authorization
@@ -146,7 +146,7 @@ async function getUserNameFromToken(token) {
     const encodedEmail = encodeURIComponent(email);
 
     // Gửi request với token trong header
-    const response = await fetch(`https://test-deploy-music-be.onrender.com/api/user/${encodedEmail}`, {
+    const response = await fetch(`http://localhost:8181/api/user/${encodedEmail}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`, // Thêm token vào header Authorization
@@ -179,7 +179,7 @@ async function fetchPurchasedMusic(token, username) {
   purchasedMusicList.innerHTML = "";
 
   try {
-    const url = `https://test-deploy-music-be.onrender.com/api/user/musics/my-musics?composerUserName=${encodeURIComponent(
+    const url = `http://localhost:8181/api/user/musics/my-musics?composerUserName=${encodeURIComponent(
       username
     )}&page=1&pageSize=10`;
 
@@ -293,7 +293,7 @@ async function handleCreateMusic() {
     }
 
     // Send request to Spring API
-    const springResponse = await fetch('https://test-deploy-music-be.onrender.com/api/user/musics/create-music', {
+    const springResponse = await fetch('http://localhost:8181/api/user/musics/create-music', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

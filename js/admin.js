@@ -21,7 +21,7 @@ function fetchMusics() {
         };
 
         // Gửi yêu cầu xác thực token và lấy dữ liệu âm nhạc
-        fetch('https://test-deploy-music-be.onrender.com/api/admin/musics', requestOptions)
+        fetch('http://localhost:8181/api/admin/musics', requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     // Nếu token không hợp lệ, chuyển hướng về trang đăng nhập
@@ -117,7 +117,7 @@ function searchMusic() {
             };
         
             // Gửi yêu cầu đến API
-            fetch('https://test-deploy-music-be.onrender.com/api/admin/users', requestOptions)
+            fetch('http://localhost:8181/api/admin/users', requestOptions)
                 .then((response) => {
                     if (!response.ok) {
                         alert('Lỗi khi lấy danh sách người dùng hoặc token không hợp lệ.');

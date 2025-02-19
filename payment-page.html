@@ -86,7 +86,7 @@
             try {
                 const token = localStorage.getItem('authToken');
                 if (!token) throw new Error('Bạn cần đăng nhập lại.');
-                const response = await fetch(`https://test-deploy-music-be.onrender.com/api/user/musics/${musicId}`, {
+                const response = await fetch(`http://localhost:8181/api/user/musics/${musicId}`, {
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
                 });
@@ -125,7 +125,7 @@
         
         async function checkPaid() {
             try {
-                const response = await fetch("https://script.google.com/macros/s/AKfycbxfNHbOa6TfOSzFmURTPkWvFZjSH9jd3LL4CX6J4ezyquzmcGBc__s3M_dNu_GM6Ngm/exec");
+                const response = await fetch("https://script.google.com/macros/s/AKfycbxq-mL0KMBh9dR92qLTf1sHU_HLbf1XN011QHR_x3YqB0PjOF7TrxFk8UrQD0vlgeNz/exec");
                 const data = await response.json();
                 console.log("Dữ liệu từ API thanh toán:", data);
                 // Kiểm tra xem có giao dịch mới hay không

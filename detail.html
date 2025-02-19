@@ -169,7 +169,7 @@
             }
   
             // Gọi API để lấy chi tiết bài nhạc
-            const response = await fetch(`https://test-deploy-music-be.onrender.com/api/user/musics/${musicId}`, {
+            const response = await fetch(`http://localhost:8181/api/user/musics/${musicId}`, {
               headers: {
                 Authorization: `Bearer ${token}`,  // Thêm Bearer token vào header
               },

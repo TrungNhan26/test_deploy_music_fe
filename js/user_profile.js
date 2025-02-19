@@ -31,7 +31,7 @@ window.onload = async function () {
       const email = decoded.sub;
       const encodedEmail = encodeURIComponent(email);
   
-      const response = await fetch(`https://test-deploy-music-be.onrender.com/api/user/${encodedEmail}`, {
+      const response = await fetch(`http://localhost:8181/api/user/${encodedEmail}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -85,7 +85,7 @@ window.onload = async function () {
     musicList.innerHTML = "";
   
     try {
-      const url = `https://test-deploy-music-be.onrender.com/api/user/musics/my-musics?composerUserName=${encodeURIComponent(
+      const url = `http://localhost:8181/api/user/musics/my-musics?composerUserName=${encodeURIComponent(
         username
       )}&page=1&pageSize=10`;
   
@@ -178,7 +178,7 @@ window.onload = async function () {
       const encodedEmail = encodeURIComponent(email);
   
       // Fetch user data từ API với email đã mã hóa
-      const response = await fetch(`https://test-deploy-music-be.onrender.com/api/user/${encodedEmail}`, {
+      const response = await fetch(`http://localhost:8181/api/user/${encodedEmail}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
