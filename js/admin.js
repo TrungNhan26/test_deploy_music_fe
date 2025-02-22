@@ -21,7 +21,7 @@ function fetchMusics() {
         };
 
         // Gửi yêu cầu xác thực token và lấy dữ liệu âm nhạc
-        fetch('http://localhost:8181/api/admin/musics', requestOptions)
+        fetch('http://27.71.20.51:8181/api/admin/musics', requestOptions)
             .then((response) => {
                 if (!response.ok) {
                     // Nếu token không hợp lệ, chuyển hướng về trang đăng nhập
@@ -117,7 +117,7 @@ function searchMusic() {
             };
         
             // Gửi yêu cầu đến API
-            fetch('http://localhost:8181/api/admin/users', requestOptions)
+            fetch('http://27.71.20.51:8181/api/admin/users', requestOptions)
                 .then((response) => {
                     if (!response.ok) {
                         alert('Lỗi khi lấy danh sách người dùng hoặc token không hợp lệ.');

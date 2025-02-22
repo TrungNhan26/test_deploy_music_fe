@@ -1,5 +1,5 @@
 
-const API_BASE_URL = 'http://localhost:8181';
+const API_BASE_URL = 'http://27.71.20.51:8181';
 
 // Lấy danh sách người dùng từ API
 function fetchUsers() {
