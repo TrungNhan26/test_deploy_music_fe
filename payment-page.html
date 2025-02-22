@@ -113,7 +113,7 @@
                 return;
             }
             try {
-                const response = await fetch(`http://localhost:8000/api/update-purchase-status?musicId=${musicId}`, {
+                const response = await fetch(`http://27.71.20.51:8000/api/update-purchase-status?musicId=${musicId}`, {
                     method: "POST"
                 });
                 const result = await response.json();

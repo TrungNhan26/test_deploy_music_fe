@@ -52,7 +52,7 @@ window.onload = async function () {
   }
 
   function downloadMusic(titleResponse) {
-    fetch(`http://localhost:8000/results/${titleResponse}`)
+    fetch(`http://27.71.20.51:8000/results/${titleResponse}`)
       .then(response => {
           if (!response.ok) {
               throw new Error("File not found");
@@ -259,7 +259,7 @@ async function saveMusicTitle() {
   }
   
   try {
-    const response = await fetch(`http://localhost:8000/api/music/${editingMusicId}/update-title`, {
+    const response = await fetch(`http://27.71.20.51:8000/api/music/${editingMusicId}/update-title`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

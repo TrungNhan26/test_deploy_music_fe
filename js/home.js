@@ -272,18 +272,18 @@ async function handleCreateMusic() {
     if (currentTab === 'monotone') {
       categoryId = 1;
       if (isMidiUploadedMonotone) {
-        apiUrl = 'http://localhost:8000/roll-gen-melody-with-midi-monotone';
+        apiUrl = 'http://27.71.20.51:8000/roll-gen-melody-with-midi-monotone';
         midiFile = document.getElementById('monotoneMidi').files[0];
       } else if (!document.getElementById('monotoneToggle').checked) {
-        apiUrl = 'http://localhost:8000/roll-gen-melody-without-midi-monotone';
+        apiUrl = 'http://27.71.20.51:8000/roll-gen-melody-without-midi-monotone';
       }
     } else if (currentTab === 'multitone') {
       categoryId = 2;
       if (isMidiUploadedMultitone) {
-        apiUrl = 'http://localhost:8000/nhan-gen-melody-with-midi-multitone';
+        apiUrl = 'http://27.71.20.51:8000/nhan-gen-melody-with-midi-multitone';
         midiFile = document.getElementById('multitoneMidi').files[0];
       } else if (!document.getElementById('multitoneToggle').checked) {
-        apiUrl = 'http://localhost:8000/hoang-gen-melody-without-midi-multitone';
+        apiUrl = 'http://27.71.20.51:8000/hoang-gen-melody-without-midi-multitone';
       }
     }
 

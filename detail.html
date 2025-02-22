@@ -243,7 +243,7 @@
   
       // Hàm để phát MIDI từ server sử dụng Tone.js
       function playMIDI(midiFile) {
-        fetch(`http://localhost:8000/results/${midiFile}`)
+        fetch(`http://27.71.20.51:8000/results/${midiFile}`)
           .then(response => {
             if (!response.ok) {
               throw new Error('File not found');
